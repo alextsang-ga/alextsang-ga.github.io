@@ -24,7 +24,7 @@
 
     // Get variation ID.
     if (experimentId !== null) {
-        if (window.optimizely.data.state.variationIdsMap.length > 0) {
+        if (window.optimizely.data.state.variationIdsMap[experimentId] !== undefined) {
             variationId = window.optimizely.data.state.variationIdsMap[experimentId];
         }
     }
