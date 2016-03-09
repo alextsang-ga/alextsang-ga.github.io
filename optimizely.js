@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    let experimentId = null,
+    var experimentId = null,
         variationId = null,
         generatedKey = null,
 
