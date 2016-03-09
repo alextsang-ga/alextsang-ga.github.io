@@ -39,16 +39,22 @@
     }
 
     // Reporting.
+    clearDomChildren(experimentIdSpan);
+    clearDomChildren(variationIdSpan);
+    clearDomChildren(generatedKeySpan);
     if (experimentId !== null) {
-        clearDomChildren(experimentIdSpan);
         experimentIdSpan.appendChild(document.createTextNode(experimentId));
+    } else {
+        experimentIdSpan.appendChild(document.createTextNode('(UNKNOWN)'));
     }
     if (variationId !== null) {
-        clearDomChildren(variationIdSpan);
         variationIdSpan.appendChild(document.createTextNode(variationId));
+    } else {
+        variationIdSpan.appendChild(document.createTextNode('(UNKNOWN)'));
     }
     if (generatedKey !== null) {
-        clearDomChildren(generatedKeySpan);
         generatedKeySpan.appendChild(document.createTextNode(generatedKey));
+    } else {
+        generatedKeySpan.appendChild(document.createTextNode('(UNKNOWN)'));
     }
 }());
