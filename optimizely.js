@@ -4,6 +4,7 @@
     var AMPLITUDE_KEY = 'e330a213018d4d7bd0dbd47d58a6bfba',
 
         experimentId = null,
+        variationIds = null,
         variationId = null,
         generatedKey = null,
 
@@ -29,8 +30,9 @@
 
     // Get variation ID.
     if (experimentId !== null) {
-        if (window.optimizely.data.state.variationIdsMap[experimentId] !== undefined) {
-            variationId = window.optimizely.data.state.variationIdsMap[experimentId];
+        variationIds = window.optimizely.data.state.variationIdsMap[experimentId];
+        if (variationIds !== undefined) {
+            variationId = variationIds[0];
         }
     }
 
