@@ -1,13 +1,18 @@
 (function () {
     'use strict';
 
-    var experimentId = null,
+    var AMPLITUDE_KEY = 'e330a213018d4d7bd0dbd47d58a6bfba',
+
+        experimentId = null,
         variationId = null,
         generatedKey = null,
 
         experimentIdSpan = document.getElementById('experiment-id'),
         variationIdSpan = document.getElementById('variation-id'),
-        generatedKeySpan = document.getElementById('generated-key');
+        generatedKeySpan = document.getElementById('generated-key'),
+
+        amplitudeUserIdentify = null,
+        amplitudeEventProperties = {};
 
     function clearDomChildren(domElement) {
         while (domElement.hasChildNodes()) {
@@ -56,5 +61,19 @@
         generatedKeySpan.appendChild(document.createTextNode(generatedKey));
     } else {
         generatedKeySpan.appendChild(document.createTextNode('(UNKNOWN)'));
+    }
+
+    // Send Optimizely data to Amplitude if an experiment is running.
+    if ((experimentId !== null) && (variationId !== null)) {
+        amplitude.init(AMPLITUDE_KEY);
+        amplitude.setUserId('TEST-USER');
+        amplitudeUserIdentify = new amplitude.Identify()
+            .set(generatedKey, variationId);
+        amplitude.identify(amplitudeUserIdentify);
+        amplitudeEventProperties[generatedKey] = variationId;
+        amplitude.logEvent(
+            'TEST-OPTIMIZELY-AMPLITUDE',
+            amplitudeEventProperties
+        );
     }
 }());
